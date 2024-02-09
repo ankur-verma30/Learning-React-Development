@@ -1,11 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import './index.css';
-import imagefile from '../src/new.jpg' ;
-
-const author="Ankur Verma";
-const title="The power of the subconscious mind";
-const img={imagefile};
+import "./index.css";
 /*
 function BookList() {
   return (
@@ -16,7 +11,7 @@ function BookList() {
   );
 }
 */
-//using props in the booklist component
+/*using props in the booklist component
 function BookList(){
   return (
     <section className="booklist">
@@ -25,8 +20,6 @@ function BookList(){
     </section>
   );
 };
-
-
 const Book = (Props) => {
   console.log(Props)
   return (
@@ -38,6 +31,7 @@ const Book = (Props) => {
     </article>
   );
 };
+*/
 
 /*
 Adding the  Javascript and css to the JSX
@@ -54,9 +48,33 @@ const Author = () => {
 
 
 */
+const book = [
+  { author: "John", name: "Delta", age: 22, id: 1 },
+  { author: "Ram", name: "Delta1", age: 23, id: 2 },
+];
 
+const BookList = () => {
+  return (
+    <section className="booklist">
+      {book.map((bookies) => {
+        const { img, author, title } = bookies;
+        return <Book img={img} author={author} title={title} />;
+      })}
+    </section>
+  );
+};
 
-/*Using Props*/
+const Book = (props) => {
+  const { img, author, title } = props;
+  console.log(props);
+  return (
+    <article>
+      <img src={img} alt={title} />
+      <h1>{title}</h1>
+      <h4>{author}</h4>
+    </article>
+  );
+};
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<BookList />);
