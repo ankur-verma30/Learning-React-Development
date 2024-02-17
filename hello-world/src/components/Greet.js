@@ -1,13 +1,16 @@
 import React from "react";
 
+
+//this is the functional componenet
 const Greet = (props) => {
   console.log(props);
+  const {name,year,children}=props;
   return (
     //create as the javascript object
     <div>
-      {props.children}
+      {children}
       <h4>
-        {props.name} {props.year}
+        {name} {year}
       </h4>
     </div>
   );

@@ -1,41 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-// import reportWebVitals from './reportWebVitals';
-
-const books = [
-  { author: "John", title: "Delta0", id: 1 },
-  { author: "Ram", title: "Delta1",  id: 2 },
-];
-
-const BookList = () => {
-  const someValue="ShakeandBake";
-  const displayValue =()=>{
-    console.log(someValue);
-  }
-  return (
-    <section className="booklist">
-      {books.map((book) => {
-        return <Book {...book} key={book.id}  display={displayValue}/>;
-      })}
-    </section>
-  );
-};
-
- 
-
-const Book = (props) => {
-  const { img, author, title, display} = props;
-  // console.log(props);
-  return (
-    <article>
-      <img src={img} alt={title} />
-      <h1>{title}</h1>
-      <button onClick={display}>Click Me</button>
-      <h4>{author}</h4>
-    </article>
-  );
-};
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<BookList/>);
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
