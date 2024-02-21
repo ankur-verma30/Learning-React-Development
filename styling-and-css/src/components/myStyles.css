@@ -1,0 +1,13 @@
+.primary{
+    color: green;
+    border: 1px solid black;
+    margin: 10px;
+    padding: 10px;
+    letter-spacing: 2px;
+    background-color: yellow !important;
+
+}
+
+.font-xl{
+    font-size: 5rem;
+}
