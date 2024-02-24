@@ -8,22 +8,44 @@ class lifecycleA extends Component {
       this.state = {
          name:"Ankur",
       }
-      console.log('LifycycleA constructor');
+      console.log('LifecycleA constructor');
     }
 
     static getDerivedStateFromProps(props) {
-        console.log('LifycycleA getDerivedStateFromProps ' )
+        console.log('LifecycleA getDerivedStateFromProps ' )
         return null
     }
     
     componentDidMount(){
-        console.log('LifycycleA componentDidMount');
+        console.log('LifecycleA componentDidMount');
+    }
+
+    shouldComponentUpdate(){
+      console.log('LifecycleA shouldComponentUpdate');
+      return true;
+    }
+
+    getSnapshotBeforeUpdate(){
+      console.log('LifecycleA getSnapshotBeforeUpdate');
+      return null
+    }
+
+    componentDidUpdate(){
+      console.log('LifecycleA componentDidUpdate');
+    }
+
+    changeState=()=>{
+      this.setState({
+        name:'Codevolution'
+      })
     }
   render() {
-    console.log('LifycycleA render')
+    console.log('LifecycleA render')
     return (
       <div>
-        LifycycleA
+        LifecycleA
+        <br/>
+      <button onClick={this.changeState}>Change State</button>
       <LifecycleB/>
       </div>
     )
