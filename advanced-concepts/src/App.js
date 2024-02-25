@@ -6,6 +6,7 @@ import ParentComp from "./Components/ParentComp";
 // import RefsDemo from './Components/RefsDemo';
 // import FocusInput from './Components/FocusInput';
 import ForwardRefParentInput from "./Components/forwardRefParentInput";
+import PortalDemo from "./Components/portalDemo";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       {/* <RefsDemo/> */}
       {/* <FocusInput/> */}
       <ForwardRefParentInput />
+      <PortalDemo/>
     </div>
   );
 }
