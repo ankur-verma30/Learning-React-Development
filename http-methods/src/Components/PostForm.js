@@ -44,7 +44,7 @@ class PostForm extends Component {
           </div>
 
           <div>
-            <label>Title : </label>
+            <label>Title : </label> 
             <input
               type="text"
               name="title"
