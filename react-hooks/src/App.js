@@ -6,7 +6,10 @@ import "./App.css";
 // import HookCounterFour from "./Components/HookCounterFour";
 // import HookUseEffectCounterOne from "./Components/HookUseEffectCounterOne";
 // import HookMouse from "./Components/HookMouse";
-import ButtonContainer from "./Components/ButtonContainer";
+// import ButtonContainer from "./Components/ButtonContainer";
+// import DataFetching from "./Components/DataFetching";
+import IntervalHookCounter from "./Components/IntervalHookCounter";
+import SinglePostFetch from "./Components/SinglePostFetch";
 
 function App() {
   return (
@@ -18,7 +21,10 @@ function App() {
       {/* <HookCounterFour/> */}
       {/* <HookUseEffectCounterOne/> */}
       {/* <HookMouse/> */}
-      <ButtonContainer/>
+      {/* <ButtonContainer/> */}
+      <IntervalHookCounter/>
+      {/* <DataFetching/> */}
+      <SinglePostFetch/>
     </div>
   );
 }
