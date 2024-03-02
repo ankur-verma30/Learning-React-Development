@@ -1,4 +1,7 @@
 import "./App.css";
+import React from "react";
+
+import ContextC from "./Components/ContextC";
 // import ClassCounter from './Components/ClassCounter';
 // import Hookcounter from "./Components/Hookcounter";
 // import HookCounterTwo from "./Components/HookCounterTwo";
@@ -10,7 +13,10 @@ import "./App.css";
 // import DataFetching from "./Components/DataFetching";
 import IntervalHookCounter from "./Components/IntervalHookCounter";
 import SinglePostFetch from "./Components/SinglePostFetch";
+// import UserContext from "../../context-api/src/Components/UserContext";
 
+export const userContext = React.createContext();
+export const UserChannel = React.createContext();
 function App() {
   return (
     <div className="App">
@@ -22,9 +28,16 @@ function App() {
       {/* <HookUseEffectCounterOne/> */}
       {/* <HookMouse/> */}
       {/* <ButtonContainer/> */}
-      <IntervalHookCounter/>
+      <IntervalHookCounter />
       {/* <DataFetching/> */}
-      <SinglePostFetch/>
+      <SinglePostFetch />
+
+      {/* useContext hooks usage */}
+      <userContext.Provider value={"Ankur"}>
+        <UserChannel.Provider value={"Ankur Verma coding channel"}>
+          <ContextC />
+        </UserChannel.Provider>
+      </userContext.Provider>
     </div>
   );
 }
