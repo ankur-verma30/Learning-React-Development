@@ -20,7 +20,12 @@ import SinglePostFetch from "./Components/SinglePostFetch";
 import ComponentA from "./Components/ComponentA";
 import ComponentB from "./Components/ComponentB";
 import ComponentC from "./Components/ComponentC";
+import DataFetchingTwo from "./Components/DataFetchingTwo";
+// import DataFetchingOne from "./Components/DataFetchingOne";
 // import UserContext from "../../context-api/src/Components/UserContext";
+
+
+
 
 export const userContext = React.createContext();
 export const UserChannel = React.createContext();
@@ -73,6 +78,8 @@ function App() {
       <ComponentB/>
       <ComponentC/>
       </CountContext.Provider>
+      {/* <DataFetchingOne/> */}
+      <DataFetchingTwo/>
     </div>
   );
 }
