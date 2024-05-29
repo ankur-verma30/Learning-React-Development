@@ -24,6 +24,8 @@ import DataFetchingTwo from "./Components/DataFetchingTwo";
 // import DataFetchingOne from "./Components/DataFetchingOne";
 // import UserContext from "../../context-api/src/Components/UserContext";
 
+import ParentComponent from "./Components/UseCallBack/ParentComponent";
+
 
 
 
@@ -80,6 +82,8 @@ function App() {
       </CountContext.Provider>
       {/* <DataFetchingOne/> */}
       <DataFetchingTwo/>
+      <ParentComponent/>
+
     </div>
   );
 }
