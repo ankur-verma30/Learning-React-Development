@@ -25,6 +25,11 @@ import DataFetchingTwo from "./Components/DataFetchingTwo";
 // import UserContext from "../../context-api/src/Components/UserContext";
 
 import ParentComponent from "./Components/UseCallBack/ParentComponent";
+import Counter from "./Components/Other-Hooks/UseMemoHook/Counter";
+
+import FocusInput from "./Components/Other-Hooks/UseRefHook/FocusInput";
+import ClassTimer from "./Components/Other-Hooks/UseRefHook/ClassTimer";
+import HookTimer from "./Components/Other-Hooks/UseRefHook/HookTimer";
 
 
 
@@ -83,6 +88,11 @@ function App() {
       {/* <DataFetchingOne/> */}
       <DataFetchingTwo/>
       <ParentComponent/>
+      <Counter/>
+      <FocusInput/>
+      <ClassTimer/>
+      <HookTimer/>
+
 
     </div>
   );
