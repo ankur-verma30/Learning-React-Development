@@ -2,7 +2,17 @@ import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 
 export const YouTubeForm = () => {
-	const form = useForm();
+	const defaultValues = {
+		username: "AnkurVerma",
+		email: "ankurverma123@gmail.com",
+		channel: "vipergaming",
+		social: {
+			twitter: "viper",
+			facebook: "gaming",
+		},
+		phoneNumbers: ["", ""],
+	};
+	const form = useForm({ defaultValues: defaultValues });
 	const { register, control, handleSubmit, formState } = form;
 	const { errors } = formState;
 
@@ -49,7 +59,7 @@ export const YouTubeForm = () => {
 										"this domain is not supported"
 									);
 								},
-							}, 
+							},
 						},
 					})}
 				/>
@@ -57,6 +67,26 @@ export const YouTubeForm = () => {
 
 				<label htmlFor="channel">Channel</label>
 				<input type="text" id="channel" {...register("channel")} />
+
+				<label htmlFor="twitter">Twitter</label>
+				<input type="text" id="twitter" {...register("social.twitter")} />
+
+				<label htmlFor="facebook">FaceBook</label>
+				<input type="text" id="facebook" {...register("social.facebook")} />
+
+				<label htmlFor="primary-phonenumber">Primary Phone Number</label>
+				<input
+					type="text"
+					id="primary-phonenumber"
+					{...register("phoneNumbers.0")}
+				/>
+
+				<label htmlFor="secondary-phonenumber">Secondary Phone Number</label>
+				<input
+					type="text"
+					id="secondary-phonenumber"
+					{...register("phoneNumbers.1")}
+				/>
 
 				<button>Submit</button>
 			</form>
