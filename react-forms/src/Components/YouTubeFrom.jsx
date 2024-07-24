@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 
 export const YouTubeForm = () => {
@@ -11,10 +11,18 @@ export const YouTubeForm = () => {
 			facebook: "gaming",
 		},
 		phoneNumbers: ["", ""],
+		phNumbers: [{ numbers: "" }],
+		age: 0,
+		dob: new Date(),
 	};
 	const form = useForm({ defaultValues: defaultValues });
 	const { register, control, handleSubmit, formState } = form;
 	const { errors } = formState;
+
+	const { fields, append, remove } = useFieldArray({
+		name: "phNumbers",
+		control: control,
+	});
 
 	const onSubmit = (data) => {
 		console.log("Form Submitted Successfully", data);
@@ -68,6 +76,34 @@ export const YouTubeForm = () => {
 				<label htmlFor="channel">Channel</label>
 				<input type="text" id="channel" {...register("channel")} />
 
+				<label htmlFor="age">Age</label>
+				<input
+					type="number"
+					id="age"
+					{...register("age", {
+						valueAsNumber: true,
+						required: {
+							value: true,
+							message: "Please enter valid age",
+						},
+					})}
+				/>
+				<p className="error">{errors.age?.message}</p>
+
+				<label htmlFor="dob">Date of Birth</label>
+				<input
+					type="date"
+					id="dob"
+					{...register("dob", {
+						valueAsDatgit : true,
+						required: {
+							value: true,
+							message: "Please enter valid dob",
+						},
+					})}
+				/>
+				<p className="error">{errors.dob?.message}</p>
+
 				<label htmlFor="twitter">Twitter</label>
 				<input type="text" id="twitter" {...register("social.twitter")} />
 
@@ -87,6 +123,32 @@ export const YouTubeForm = () => {
 					id="secondary-phonenumber"
 					{...register("phoneNumbers.1")}
 				/>
+
+				<div>
+					<label>
+						List of Phone Numbers
+						<div>
+							{fields.map((field, index) => {
+								return (
+									<div className="form-control" key={field.id}>
+										<input
+											type="text"
+											{...register(`phNumbers.${index}.numbers`)}
+										/>
+										{index > 0 && (
+											<button type="button" onClick={() => remove(index)}>
+												Removoe Phone Number
+											</button>
+										)}
+									</div>
+								);
+							})}
+							<button type="button" onClick={() => append({ numbers: "" })}>
+								Add Phone Number
+							</button>
+						</div>
+					</label>
+				</div>
 
 				<button>Submit</button>
 			</form>
