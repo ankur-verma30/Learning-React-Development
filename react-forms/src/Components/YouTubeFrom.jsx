@@ -1,5 +1,6 @@
 import { useForm, useFieldArray } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
+import { useEffect } from "react";
 
 export const YouTubeForm = () => {
 	const defaultValues = {
@@ -13,29 +14,69 @@ export const YouTubeForm = () => {
 		phoneNumbers: ["", ""],
 		phNumbers: [{ numbers: "" }],
 		age: 0,
-		dob: new Date(),
+		dob: new Date().toISOString().split("T")[0], // Set default to today's date in YYYY-MM-DD format
 	};
+
 	const form = useForm({ defaultValues: defaultValues });
-	const { register, control, handleSubmit, formState } = form;
-	const { errors } = formState;
+	const {
+		register,
+		control,
+		handleSubmit,
+		formState,
+		watch,
+		getValues,
+		setValue,
+		
+	} = form;
+	const { errors, touchedFields, dirtyFields, isDirty } = formState;
 
 	const { fields, append, remove } = useFieldArray({
 		name: "phNumbers",
 		control: control,
 	});
 
+	console.log({ touchedFields, dirtyFields, isDirty });
+	const handlegetFieldValues = () => {
+		console.log("The values are", getValues());
+	};
+
+	const handleSetFieldValues = () => {
+		setValue("username", "AnkurVerma123", {
+			shouldDirty: true,
+			shouldValidate: true,
+			shouldTouch: true,
+		});
+	};
+
 	const onSubmit = (data) => {
 		console.log("Form Submitted Successfully", data);
 	};
 
+	const Onerror = (errors) => {
+		console.log("The error is ", errors);
+	};
+
+	// Watch the form values
+	// const watchForm = watch();
+
+	useEffect(() => {
+		const subscription = watch((value) => {
+			console.log(value);
+		});
+
+		return () => subscription.unsubscribe();
+	}, [watch]);
+
 	return (
 		<div>
 			<h1>YouTube Form</h1>
-			<form onSubmit={handleSubmit(onSubmit)} noValidate>
+			{/* <h2>{JSON.stringify(watchForm, null, 2)}</h2> */}
+			<form onSubmit={handleSubmit(onSubmit, Onerror)} noValidate>
 				<label htmlFor="username">Username</label>
 				<input
 					type="text"
 					id="username"
+					disabled
 					{...register("username", {
 						required: {
 							value: true,
@@ -54,19 +95,19 @@ export const YouTubeForm = () => {
 							value:
 								/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
 							message: "Invalid Email Format",
-							validate: {
-								notAdmin: (fieldValue) => {
-									return (
-										fieldValue !== "admin123@gmail.com" ||
-										"Enter a different email"
-									);
-								},
-								notBlacklisted: (fieldValue) => {
-									return (
-										!fieldValue.endsWith("baddomain.com") ||
-										"this domain is not supported"
-									);
-								},
+						},
+						validate: {
+							notAdmin: (fieldValue) => {
+								return (
+									fieldValue !== "admin123@gmail.com" ||
+									"Enter a different email"
+								);
+							},
+							notBlacklisted: (fieldValue) => {
+								return (
+									!fieldValue.endsWith("baddomain.com") ||
+									"this domain is not supported"
+								);
 							},
 						},
 					})}
@@ -74,7 +115,13 @@ export const YouTubeForm = () => {
 				{errors.email && <p>{errors.email.message}</p>}
 
 				<label htmlFor="channel">Channel</label>
-				<input type="text" id="channel" {...register("channel")} />
+				<input
+					type="text"
+					id="channel"
+					{...register("channel", {
+						disabled: true,
+					})}
+				/>
 
 				<label htmlFor="age">Age</label>
 				<input
@@ -95,7 +142,7 @@ export const YouTubeForm = () => {
 					type="date"
 					id="dob"
 					{...register("dob", {
-						valueAsDatgit : true,
+						valueAsDate: true,
 						required: {
 							value: true,
 							message: "Please enter valid dob",
@@ -137,7 +184,7 @@ export const YouTubeForm = () => {
 										/>
 										{index > 0 && (
 											<button type="button" onClick={() => remove(index)}>
-												Removoe Phone Number
+												Remove Phone Number
 											</button>
 										)}
 									</div>
@@ -150,7 +197,14 @@ export const YouTubeForm = () => {
 					</label>
 				</div>
 
-				<button>Submit</button>
+				<button disabled={!isDirty}>Submit</button>
+				<button  type="button" onClick={handlegetFieldValues}>
+					Get Values
+				</button>
+
+				<button type="button" onClick={handleSetFieldValues}>
+					Set Value
+				</button>
 			</form>
 			<DevTool control={control} />
 		</div>
