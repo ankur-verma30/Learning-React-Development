@@ -17,7 +17,7 @@ export const YouTubeForm = () => {
 		dob: new Date().toISOString().split("T")[0], // Set default to today's date in YYYY-MM-DD format
 	};
 
-	const form = useForm({ defaultValues: defaultValues });
+	const form = useForm({ defaultValues: defaultValues,mode:'OnBlur' });
 	const {
 		register,
 		control,
@@ -26,16 +26,31 @@ export const YouTubeForm = () => {
 		watch,
 		getValues,
 		setValue,
-		
+		reset,
+		trigger
 	} = form;
-	const { errors, touchedFields, dirtyFields, isDirty } = formState;
+	
+	const {
+		errors,
+		touchedFields,
+		dirtyFields,
+		isDirty,
+		isValid,
+		isSubmitSuccessful,
+		isSubmitted,
+		isSubmitting,
+		submitCount,
+	} = formState;
 
 	const { fields, append, remove } = useFieldArray({
 		name: "phNumbers",
 		control: control,
 	});
 
-	console.log({ touchedFields, dirtyFields, isDirty });
+	console.log({ isSubmitting, isSubmitted, isSubmitSuccessful, submitCount });
+
+	console.log({ touchedFields, dirtyFields, isDirty, isValid });
+
 	const handlegetFieldValues = () => {
 		console.log("The values are", getValues());
 	};
@@ -66,6 +81,10 @@ export const YouTubeForm = () => {
 
 		return () => subscription.unsubscribe();
 	}, [watch]);
+
+	useEffect(() => {
+		if (isSubmitSuccessful) reset();
+	}, [isSubmitSuccessful, reset]);
 
 	return (
 		<div>
@@ -108,6 +127,13 @@ export const YouTubeForm = () => {
 									!fieldValue.endsWith("baddomain.com") ||
 									"this domain is not supported"
 								);
+							},
+							emailAvailable: async (fieldValue) => {
+								const response = await fetch(
+									`apiendpoint/user?email=${fieldValue}`
+								);
+								const data = await response.json();
+								return data.length === 0 || "Error email already exists";
 							},
 						},
 					})}
@@ -159,14 +185,14 @@ export const YouTubeForm = () => {
 
 				<label htmlFor="primary-phonenumber">Primary Phone Number</label>
 				<input
-					type="text"
+					type="number"
 					id="primary-phonenumber"
 					{...register("phoneNumbers.0")}
 				/>
 
 				<label htmlFor="secondary-phonenumber">Secondary Phone Number</label>
 				<input
-					type="text"
+					type="number"
 					id="secondary-phonenumber"
 					{...register("phoneNumbers.1")}
 				/>
@@ -179,7 +205,7 @@ export const YouTubeForm = () => {
 								return (
 									<div className="form-control" key={field.id}>
 										<input
-											type="text"
+											type="number"
 											{...register(`phNumbers.${index}.numbers`)}
 										/>
 										{index > 0 && (
@@ -197,13 +223,20 @@ export const YouTubeForm = () => {
 					</label>
 				</div>
 
-				<button disabled={!isDirty}>Submit</button>
-				<button  type="button" onClick={handlegetFieldValues}>
+				<button disabled={!isDirty || !isValid || isSubmitting}>Submit</button>
+				<button type="button" onClick={handlegetFieldValues}>
 					Get Values
 				</button>
 
 				<button type="button" onClick={handleSetFieldValues}>
 					Set Value
+				</button>
+
+				<button type="button" onClick={() => reset()}>
+					Reset Value
+				</button>
+				<button type="button" onClick={() => trigger()}>
+					Validate
 				</button>
 			</form>
 			<DevTool control={control} />
