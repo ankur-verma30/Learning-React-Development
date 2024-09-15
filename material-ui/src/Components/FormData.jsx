@@ -3,7 +3,14 @@ import {
 	Button,
 	FormGroup,
 	FormControlLabel,
+	FormControl,
 	Checkbox,
+	InputLabel,
+	Select,
+	MenuItem,
+	FormLabel,
+	RadioGroup,
+	Radio,
 } from "@mui/material";
 import { useState } from "react";
 
@@ -52,12 +59,37 @@ const FormData = () => {
 					sx={{ margin: "20px", border: "1px solid red" }}
 				/>
 				<br />
+
 				<FormGroup>
 					<FormControlLabel
 						control={<Checkbox />}
 						label="I agree to the terms and conditions"
 					/>
 				</FormGroup>
+				<br />
+				<FormControl>
+					<InputLabel id="menu">Courses</InputLabel>
+					<Select labelId="menu" id="meny-list" label="Courses">
+						<MenuItem value="html">HTML</MenuItem>
+						<MenuItem value="css">CSS</MenuItem>
+						<MenuItem value="javascript">Javascript</MenuItem>
+					</Select>
+
+					<br />
+				</FormControl>
+				<br />
+				<FormControl>
+					<FormLabel>Gender</FormLabel>
+					<RadioGroup name="gender">
+						<FormControlLabel
+							value="female"
+							control={<Radio />}
+							label="Female"
+						/>
+						<FormControlLabel value="male" control={<Radio />} label="Male" />
+						<FormControlLabel value="other" control={<Radio />} label="Other" />
+					</RadioGroup>
+				</FormControl>
 				<br />
 				<Button type="submit" variant="contained">
 					Submit Form
