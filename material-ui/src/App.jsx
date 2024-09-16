@@ -7,6 +7,7 @@ import Containers from "./Components/Containers";
 import ListComponents from "./Components/ListComponents";
 import AccordionList from "./Components/AccordionList";
 import DrawerComponent from "./Components/DrawerComponent";
+import GridComponents from "./Components/GridComponents";
 
 function App() {
 	return (
@@ -62,6 +63,7 @@ function App() {
 				<br />
 				<ListComponents />
 				<br />
+				<GridComponents/>
 				
 			</div>
 		</>
